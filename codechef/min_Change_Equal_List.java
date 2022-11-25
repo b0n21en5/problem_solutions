@@ -1,10 +1,4 @@
-
-
-import java.util.*;
-import java.lang.*;
-import java.io.*;
-
-
+import java.util.Scanner;
 class min_Change_Equal_List
 {
     public static int cntOccur(int[] arr, int v,int l){
