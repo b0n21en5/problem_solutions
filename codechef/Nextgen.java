@@ -1,9 +1,4 @@
-
-
-import java.util.*;
-import java.lang.*;
-import java.io.*;
-
+import java.util.Scanner;
 
 
 class Nextgen
