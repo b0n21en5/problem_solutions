@@ -3,24 +3,8 @@ using namespace std;
 const int N = 1e5 + 10;
 
 int st[N];
-int dp[N];
 
-// dynamic programming approach
-void dynamic(int n)
-{
-
-    int sum[n + 2];
-
-    sum[0] = 0;
-    sum[1] = abs(st[1] - st[2]);
-
-    for (int i = 2; i < n; i++)
-    {
-        sum[i] = min(abs(st[i] - st[i - 1]) + sum[i - 1], abs(st[i] - st[i - 2]) + sum[i - 2]);
-    }
-
-    cout << sum[n - 1] << endl;
-}
+int dpArr[N];
 
 // brute force recursion approach
 int rec(int i)
@@ -41,30 +25,33 @@ int rec(int i)
     return cost;
 }
 
-// brute force recursion approach
-int dp2(int i)
+// dynamic programming approach
+int dpApp(int i)
 {
     // when frog is on stone-1 cost is 0
     if (i == 0)
         return 0;
-    if (dp[i] != -1)
-        return dp[i];
+
+    // returning sum value from dynamic array
+    if (dpArr[i] != -1)
+        return dpArr[i];
 
     int cost = INT_MAX;
 
     // way-1
-    cost = min(cost, rec(i - 1) + abs(st[i] - st[i - 1]));
+    cost = min(cost, dpApp(i - 1) + abs(st[i] - st[i - 1]));
 
     // way-2
     if (i > 1)
-        cost = min(cost, rec(i - 2) + abs(st[i] - st[i - 2]));
+        cost = min(cost, dpApp(i - 2) + abs(st[i] - st[i - 2]));
 
-    return dp[i] = cost;
+    // adding absolute differences in dynamic array
+    return dpArr[i] = cost;
 }
 
 int main()
 {
-    memset(dp, -1, sizeof(dp));
+    memset(dpArr, -1, sizeof(dpArr));
     int n;
     cin >> n;
     for (int i = 0; i < n; i++)
@@ -72,8 +59,6 @@ int main()
         cin >> st[i];
     }
 
-    // dynamic(n);
-
     cout << rec(n - 1) << endl;
-    cout << dp2(n - 1) << endl;
+    cout << dpApp(n - 1) << endl;
 }
